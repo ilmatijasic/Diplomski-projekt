@@ -8,14 +8,14 @@ Diplomski rad za FER
 
 Python3
 
-uvicorn
-fastapi
-numpy
-tk
-requests
-pandas
-sklearn
-pydantic
+*uvicorn
+*fastapi
+*numpy
+*tk
+*requests
+*pandas
+*sklearn
+*pydantic
 
 ```
 pip install -r requirements.txt

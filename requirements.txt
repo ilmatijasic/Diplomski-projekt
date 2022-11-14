@@ -5,3 +5,4 @@ tk
 requests
 pandas
 sklearn
+pydantic

@@ -24,19 +24,21 @@ for count, i in enumerate(schema):
     data[i] = temp
 headers = {}
 
+print("Sending file...")
 files = {'file': open(r'Dresses dataset/Attribute DataSet.xlsx', 'rb')}
 response = requests.post(url_file, files=files)
 
-print("Got: ")
+print("Response: ")
 print(response.json())
 
-
+print("\nSending Request for column names...")
 response = requests.request("GET", url_cols)
 
-print("Got: ")
+print("Response: ")
 print(response.json())
 
 # Slanje GET zahtjeva API
+print("\nSending request for recommendation...")
 response = requests.request("GET", url_recommend, headers=headers, json=data)
 
 # Print poslani i primljeni json

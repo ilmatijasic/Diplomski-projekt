@@ -8,14 +8,14 @@ Diplomski rad za FER
 
 Python3
 
-* uvicorn
-* fastapi
-* numpy
-* tk
-* requests
-* pandas
-* sklearn
-* pydantic
+- uvicorn
+- fastapi
+- numpy
+- tk
+- requests
+- pandas
+- sklearn
+- pydantic
 
 ```
 pip install -r requirements.txt
@@ -23,16 +23,21 @@ pip install -r requirements.txt
 
 ### Executing program
 
-* Otvoriti dvije konzole
-* U prvoj konzoli pokrenuti uvicorn
+- Otvoriti dvije konzole
+- U prvoj konzoli pokrenuti API
+
 ```
-python -m uvicorn REST_API:app --reload
+python REST_API.py
 ```
-* U drugoj pokrenuti primjer za API
+
+- U drugoj pokrenuti primjer za API
+
 ```
 python main_api.py
 ```
-* GUI verzija
+
+- GUI verzija
+
 ```
 python main_gui.py
 ```
@@ -42,7 +47,3 @@ python main_gui.py
 Ivor Leon Matijašić
 
 email: Ivor-Leon.Matijasic@fer.hr
-
-
-
-

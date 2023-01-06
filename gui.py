@@ -150,7 +150,7 @@ class Application(tk.Frame):
             self.label_click=ttk.Label(self, text = str(rec))
             self.label_click.grid(row=6+bri, column=len(self.options)+2, padx=3, pady=10)
 
-            self.label_click=ttk.Label(self, text = str(sim*100)[:4] + '%')
+            self.label_click=ttk.Label(self, text = str(sim)[:4])
             self.label_click.grid(row=6+bri, column=len(self.options)+3, padx=3, pady=10)
 
             bri+=1

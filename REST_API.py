@@ -1,8 +1,10 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from recommend import CaseRecommend
 import numpy as np
 from typing import List
 from pydantic import BaseModel
+import pandas as pd
+import uvicorn
 
 
 class Item(BaseModel):
@@ -20,15 +22,16 @@ class Item(BaseModel):
     patternType: str
 
 
-FILE_NAME = r'Dresses dataset/Attribute DataSet.xlsx'
+FILE_PATH = r'Dresses dataset/Attribute DataSet.xlsx'
 
 L = [2, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
 
-cRecommend = CaseRecommend(FILE_NAME, L)
+cRecommend = CaseRecommend(FILE_PATH, L)
 
-df = cRecommend.getdf()
-df = df.fillna('')
+# df = cRecommend.getdf()
+# df = df.fillna('')
 
+df = None
 
 app = FastAPI()
 
@@ -36,13 +39,32 @@ app = FastAPI()
 def home():
     return "Hello, this is an API for a Case based recommender system made by: Ivor Leon Matijašić"
 
+
+@app.post("/file")
+def filepath(file: UploadFile = File(...)):
+    # print(file)
+    global df
+    df = CaseRecommend(file.file.read(), L)
+    # print(df.cols)
+    file.file.close()
+    return {"File name": file.filename}
+
 @app.get("/columns")
 def columns():
-    return {"Column names": list(df.columns)}
+    if df is not None:
+        return {"Column names": list(df.cols)}
+    raise HTTPException(status_code=404, detail="File has not been uploaded!")
+
 
 
 @app.get("/recommend/")
-async def get_recommend(item: Item):
-    return cRecommend.recommend(list(item.dict().values()))
+def get_recommend(item: Item):
+    if df is not None:
+        return df.recommend(list(item.dict().values()))
+    raise HTTPException(status_code=404, detail="File has not been uploaded!")
+
+
+if __name__ == "__main__":
+    uvicorn.run("REST_API:app", host="0.0.0.0", port=8000, log_level="debug", reload=True)
 
 

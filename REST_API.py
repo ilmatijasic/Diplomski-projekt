@@ -58,9 +58,15 @@ def columns():
 
 
 @app.get("/recommend/")
-def get_recommend(item: Item):
+def getRecommend(item: Item):
     if df is not None:
         return df.recommend(list(item.dict().values()))
+    raise HTTPException(status_code=404, detail="File has not been uploaded!")
+
+@app.get("/config/")
+def getConfig():
+    if df is not None:
+        pass
     raise HTTPException(status_code=404, detail="File has not been uploaded!")
 
 
